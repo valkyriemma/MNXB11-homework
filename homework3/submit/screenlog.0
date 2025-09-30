@@ -1,0 +1,110 @@
+ckemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ cat[K[K[Kcat ./runincontainer.sh 
+[?2004l#!/bin/sh
+
+# This command below runs the script using the container `mnxb11_al9.latest.sif` with minimum required parameters
+# It is simpler than startmnxb11container.sh because we need much less options to run in batch
+# It is best for running on batch systems
+# -B mounts the project directory inside the container so that is visible also inside the container
+# You can add parameters to the application by adding them at the end of the line
+# Example: apptainer run -B /projects:/projects /projects/hep/fs10/mnxb11/containers/mnxb11_al9.latest.sif ./buildnrun_picalc.sh 1e9
+apptainer run -B /projects:/projects /projects/hep/fs10/mnxb11/containers/mnxb11_al9.latest.sif ./buildnrun_picalc.sh 3e8
+
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ cat calculatepi.sbatch-emmakrvaric.sh 
+[?2004l#!/bin/sh
+
+#SBATCH -J "MNXB11 Pi homework3"
+#SBATCH --time=00:07:25
+#SBATCH -A hep2023-1-6
+#SBATCH --mem 26566256k
+
+# Launch the wrapper script 
+runincontainer.sh
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ sbatch calculatepi.sbatch-emmakrvaric.sh 
+[?2004lSubmitted batch job 1616835
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ sbatch calculatepi.sbatch-emmakrvaric.sh 
+[?2004lSubmitted batch job 1616836
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ squeue -u emmkrv
+[?2004l             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           1616836       hep MNXB11 P   emmkrv  R    INVALID      1 cx12
+           1616835       hep MNXB11 P   emmkrv  R    INVALID      1 cx12
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ scontrol show job 1616835
+[?2004lJobId=1616835 JobName=MNXB11 Pi homework3
+   UserId=emmkrv(33225) GroupId=mnxb11(32200) MCS_label=N/A
+   Priority=66972 Nice=0 Account=hep2023-1-6 QOS=normal
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:04 TimeLimit=00:08:00 TimeMin=N/A
+   SubmitTime=2025-09-30T21:48:54 EligibleTime=2025-09-30T21:48:54
+   AccrueTime=2025-09-30T21:48:54
+   StartTime=2025-09-30T21:48:54 EndTime=2025-09-30T21:56:54 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2025-09-30T21:48:54 Scheduler=Main
+   Partition=hep AllocNode:Sid=cosmos-pkf:3771069
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=cx12
+   BatchHost=cx12
+   NumNodes=1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=1,mem=25944M,node=1,billing=1
+   AllocTRES=cpu=1,mem=25944M,node=1,billing=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=1 MinMemoryNode=25944M MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/home/emmkrv/git/MNXB11-homework/homework3/calculatePI/scripts/calculatepi.sbatch-emmakrvaric.sh
+   WorkDir=/home/emmkrv/git/MNXB11-homework/homework3/calculatePI/scripts
+   StdErr=/home/emmkrv/git/MNXB11-homework/homework3/calculatePI/scripts/slurm-1616835.out
+   StdIn=/dev/null
+   StdOut=/home/emmkrv/git/MNXB11-homework/homework3/calculatePI/scripts/slurm-1616835.out
+   Power=
+   
+
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ scontrol show job 1616835[9Pqueue -u emmkrvbatch calculatepi.sbatch-emmakrvaric.sh [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Pcat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14P./runincontainer[C[C[C[C[14@calculatepi.sbatch-emmakrvaric[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3@sbatch[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[25Pqueue -u emmkrvcontrol show job 1616835[Ksbatch --job-name="WASTED" calculatepi.sbatch-emmakrvaric.sh 
+[?2004lSubmitted batch job 1616837
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ sbatch --job-name="WASTED" calculatepi.sbatch-emmakrvaric.sh 
+[?2004lSubmitted batch job 1616838
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ sbatch --job-name="WASTED" calculatepi.sbatch-emmakrvaric.sh [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[36Pcontrol show job 1616835[9Pqueue -u emmkrv
+[?2004l             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           1616838       hep   WASTED   emmkrv  R    INVALID      1 cx12
+           1616837       hep   WASTED   emmkrv  R    INVALID      1 cx12
+           1616836       hep MNXB11 P   emmkrv  R       1:14      1 cx12
+           1616835       hep MNXB11 P   emmkrv  R       1:17      1 cx12
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ scancel j[K1616838
+[?2004lkemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ scancel 1616838queue -u emmkrv
+[?2004l             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           1616837       hep   WASTED   emmkrv  R       0:04      1 cx12
+           1616836       hep MNXB11 P   emmkrv  R       1:26      1 cx12
+           1616835       hep MNXB11 P   emmkrv  R       1:29      1 cx12
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ scontrol show job [2Pqueue -u emmkrvcontrol show job 1616837
+[?2004lJobId=1616837 JobName=WASTED
+   UserId=emmkrv(33225) GroupId=mnxb11(32200) MCS_label=N/A
+   Priority=66972 Nice=0 Account=hep2023-1-6 QOS=normal
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:35 TimeLimit=00:08:00 TimeMin=N/A
+   SubmitTime=2025-09-30T21:50:19 EligibleTime=2025-09-30T21:50:19
+   AccrueTime=2025-09-30T21:50:19
+   StartTime=2025-09-30T21:50:19 EndTime=2025-09-30T21:58:19 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2025-09-30T21:50:19 Scheduler=Main
+   Partition=hep AllocNode:Sid=cosmos-pkf:3771069
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=cx12
+   BatchHost=cx12
+   NumNodes=1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=1,mem=25944M,node=1,billing=1
+   AllocTRES=cpu=1,mem=25944M,node=1,billing=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=1 MinMemoryNode=25944M MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/home/emmkrv/git/MNXB11-homework/homework3/calculatePI/scripts/calculatepi.sbatch-emmakrvaric.sh
+   WorkDir=/home/emmkrv/git/MNXB11-homework/homework3/calculatePI/scripts
+   StdErr=/home/emmkrv/git/MNXB11-homework/homework3/calculatePI/scripts/slurm-1616837.out
+   StdIn=/dev/null
+   StdOut=/home/emmkrv/git/MNXB11-homework/homework3/calculatePI/scripts/slurm-1616837.out
+   Power=
+   
+
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ cat slurm -[K[K-k[Kscontrol show job 1616837[9Pqueue -u emmkrv[1Pcancel 1616838queue -u emmkrvbatch --job-name="WASTED" calculatepi.sbatch-emmakrvaric.sh [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[36Pcontrol show job 1616835[9Pqueue -u emmkrvbatch calculatepi.sbatch-emmakrvaric.sh [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Pcat[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14P./runincontainer[C[C[C[C[14@calculatepi.sbatch-emmakrvaric[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3@sbatch[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[25Pqueue -u emmkrvcontrol show job 1616835batch --job-name="WASTED" calculatepi.sbatch-emmakrvaric.sh [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cqueue -u emmkrv[K[1Pcancel 1616838queue -u emmkrvcontrol show job 1616837[15Pcat slurm-[K[K[K[K[K[K[K[K[K[Kc[Kc[Kc[Kcat slurm[K[K[K[K[K[K[K[K[Kexit[K[K[K[Kls
+[?2004l[0m[01;32mbuildnrun_picalc.sh[0m  calculatepi.sbatch-emmakrvaric.sh  screenlog.0        slurm-1616836.out  slurm-1616838.out
+calculatepi.sbatch   [01;32mrunincontainer.sh[0m                  slurm-1616835.out  slurm-1616837.out
+kemmkrv@cosmos-pkf:~/git/MNXB11-homework/homework3/calculatePI/scripts\[?2004h[emmkrv@cosmos-pkf scripts]$ exit
+[?2004lexit
