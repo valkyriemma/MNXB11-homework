@@ -1,10 +1,10 @@
 #pragma once
-#include <TObject.h>
+#include "TObject.h"
 
-class EmmaClass : public TOBject {
+class EmmaClass : public TObject {
     public:
         EmmaClass(); // default
-        EmmaClass(Int_t randomInt); //constructor with paramaters using root type
+        EmmaClass(Int_t RandomInt); //constructor with paramaters using root type
         virtual ~EmmaClass(); //destructor
     
     private:
